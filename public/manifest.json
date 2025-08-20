@@ -1,0 +1,8 @@
+{
+  "size": [800, 800],
+  "layersFront": ["head"],
+  "defaults": { "head": 1 },
+  "counts": { "head": 3 },
+  "hasBack": false,
+  "assetBase": "/assets"
+}
