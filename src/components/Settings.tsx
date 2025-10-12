@@ -33,7 +33,7 @@ function Section({ group, title }: { group: PartGroup; title: string }) {
 
 export default function Settings() {
   return (
-    <div className={`${styles.wrap} sticky`}>
+    <div className={styles.wrap}>
       <Section group="headgear" title="Kepurės ir plaukai" />
       <Section group="face" title="Veidai" />
       <Section group="torso" title="Aprangos" />

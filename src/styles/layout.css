@@ -1,10 +1,10 @@
 .app{
-  max-width: var(--container-w);
+  max-width: var(--minifig-container-w);
   margin: 0 auto;
-  padding: var(--gap-lg);
+  padding: var(--minifig-gap-lg);
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--gap-lg);
+  gap: var(--minifig-gap-lg);
   min-height: 100svh;
 }
 
@@ -16,15 +16,15 @@
 }
 
 .panel{
-  background: var(--surface);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: var(--gap-lg);
+  background: var(--minifig-surface);
+  border-radius: var(--minifig-radius);
+  box-shadow: var(--minifig-shadow);
+  padding: var(--minifig-gap-lg);
 }
 
 .sticky{
   position: sticky;
-  top: var(--gap-lg);
+  top: var(--minifig-gap-lg);
 }
 
 /* Mobile: stacked, sticky preview */

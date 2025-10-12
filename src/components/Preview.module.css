@@ -1,8 +1,8 @@
 .wrap {
-  background: var(--surface);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: var(--gap-md);
+  background: var(--minifig-surface);
+  border-radius: var(--minifig-radius);
+  box-shadow: var(--minifig-shadow);
+  padding: var(--minifig-gap-md);
 }
 
 .frame {
@@ -10,7 +10,7 @@
   width: 100%;
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  border-radius: calc(var(--radius) - 4px);
+  border-radius: calc(var(--minifig-radius) - 4px);
   background: repeating-linear-gradient(
     45deg, #f3f1ee, #f3f1ee 12px, #ece9e6 12px, #ece9e6 24px
   );
@@ -21,7 +21,7 @@
   .wrap {
     position: sticky;
     top: 0;
-    height: 45vh; /* užima dalį ekrano */
+    height: 45vh;
     z-index: 100;
   }
   .frame {

@@ -1,12 +1,49 @@
-/* Minimal reset */
-*{box-sizing:border-box}
-html,body,#root{height:100%}
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
-  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+/* Scoped reset for #root only */
+#root * {
+  box-sizing: border-box;
 }
-img{display:block; max-width:100%}
-button{cursor:pointer}
+
+#root {
+  /* Typography scale with clamp */
+  --minifig-h1: clamp(2.5rem, 6vw, 5.625rem);
+  --minifig-h2: clamp(2rem, 4vw, 3rem);
+  --minifig-h3: clamp(1.5rem, 3vw, 2.25rem);
+  --minifig-body: clamp(1rem, 1.2vw, 1.25rem);
+  --minifig-button: clamp(1.125rem, 1.5vw, 1.25rem); /* 18-20px */
+}
+
+#root h1 {
+  font-size: var(--minifig-h1);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+#root h2 {
+  font-size: var(--minifig-h2);
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0;
+}
+
+#root h3 {
+  font-size: var(--minifig-h3);
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0;
+}
+
+#root p, #root body {
+  font-size: var(--minifig-body);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+}
+
+#root button {
+  font-size: var(--minifig-button);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'Inter', sans-serif;
+}

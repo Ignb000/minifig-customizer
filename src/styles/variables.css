@@ -1,15 +1,28 @@
-:root{
-  --bg: #faf9f7;
-  --surface: #ffffff;
-  --text: #1b1512;
-  --muted: #6b5f58;
-  --accent: #0a84ff;
-  --radius: 16px;
-  --shadow: 0 8px 30px rgba(0,0,0,.06);
-  --gap-xs: .5rem;
-  --gap-sm: .75rem;
-  --gap-md: 1rem;
-  --gap-lg: 1.5rem;
-  --gap-xl: 2rem;
-  --container-w: 1200px;
+#root {
+  /* Colors from design guidelines */
+  --minifig-bg: #FFFFFF;
+  --minifig-surface: #FFFFFF;
+  --minifig-primary: #2196F3;
+  --minifig-primary-hover: #1976D2;
+  --minifig-accent: #AED9E0;
+  --minifig-text: #000000;
+  --minifig-border: rgba(0, 0, 0, 0.08);
+  --minifig-gray: #F5F5F5;
+  
+  /* Spacing */
+  --minifig-gap-xs: 0.5rem;
+  --minifig-gap-sm: 0.75rem;
+  --minifig-gap-md: 1rem;
+  --minifig-gap-lg: 1.5rem;
+  --minifig-gap-xl: 2rem;
+  
+  /* Layout */
+  --minifig-radius: 12px;
+  --minifig-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --minifig-container-w: 1200px;
+  
+  /* Typography */
+  --minifig-button: 1rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  line-height: 1.4;
 }
