@@ -1,6 +1,6 @@
 /* Design guideline button styles - only for primary action buttons */
-#root .button,
-#root button.primary {
+#product-customizer .button,
+#product-customizer button.primary {
   min-height: clamp(56px, 8vw, 64px);
   padding: 0 clamp(32px, 5vw, 40px);
   border-radius: var(--minifig-radius);
@@ -17,8 +17,8 @@
 
 /* Desktop hover with baby blue shadow */
 @media (hover: hover) {
-  #root .button:hover,
-  #root button.primary:hover {
+  #product-customizer .button:hover,
+  #product-customizer button.primary:hover {
     transform: scale(1.05);
     box-shadow: 0 6px 0 var(--minifig-accent);
     background: var(--minifig-primary-hover);
@@ -27,19 +27,24 @@
 
 /* Mobile tap animation */
 @media (hover: none) {
-  #root .button:active,
-  #root button.primary:active {
+  #product-customizer .button:active,
+  #product-customizer button.primary:active {
     animation: buttonBounce 0.3s ease;
   }
 }
 
 @keyframes buttonBounce {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(0.97); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.97);
+  }
 }
 
-#root .button:disabled,
-#root button.primary:disabled {
+#product-customizer .button:disabled,
+#product-customizer button.primary:disabled {
   opacity: 0.5;
   cursor: not-allowed;
   transform: none;
