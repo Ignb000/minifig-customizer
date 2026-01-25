@@ -1,29 +1,53 @@
-import { useState, useMemo, type ReactNode } from "react";
-import { catalog, defaultSelection } from "../data/catalog";
-import { CustomizerContext, type Ctx, type Selection } from "./CustomizerContext";
-import type { PartGroup } from "../data/catalog";
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import type { PartGroup } from '../data/catalog';
+import { catalog, defaultSelection, loadCatalog } from '../data/catalog';
+import { CustomizerContext, type Ctx, type Selection } from './CustomizerContext';
 
 export function CustomizerProvider({ children }: { children: ReactNode }) {
+  const [isLoading, setIsLoading] = useState(true);
   const [selection, setSelection] = useState<Selection>(defaultSelection);
 
-  const setPart = (group: PartGroup, id: string) =>
-    setSelection((s) => ({ ...s, [group]: id }));
+  // Load catalog from WordPress on mount
+  useEffect(() => {
+    loadCatalog().then(() => {
+      // After catalog loads, update selection with actual first items
+      setSelection({
+        headgear: catalog.headgear[0]?.id ?? '',
+        face: catalog.face[0]?.id ?? '',
+        torso: catalog.torso[0]?.id ?? '',
+        legs: catalog.legs[0]?.id ?? '',
+      });
+      setIsLoading(false);
+    });
+  }, []);
+
+  const setPart = (group: PartGroup, id: string) => setSelection((s) => ({ ...s, [group]: id }));
 
   const layers = useMemo(() => {
     const ids = [
-      catalog.legs.find(i => i.id === selection.legs)?.src,
-      catalog.torso.find(i => i.id === selection.torso)?.src,
-      catalog.face.find(i => i.id === selection.face)?.src,
-      catalog.headgear.find(i => i.id === selection.headgear)?.src,
+      catalog.legs.find((i) => i.id === selection.legs)?.src,
+      catalog.torso.find((i) => i.id === selection.torso)?.src,
+      catalog.face.find((i) => i.id === selection.face)?.src,
+      catalog.headgear.find((i) => i.id === selection.headgear)?.src,
     ].filter(Boolean) as string[];
     return ids;
   }, [selection]);
 
   const value: Ctx = { selection, setPart, layers };
 
-  return (
-    <CustomizerContext.Provider value={value}>
-      {children}
-    </CustomizerContext.Provider>
-  );
+  if (isLoading) {
+    return (
+      <div
+        style={{
+          padding: '2rem',
+          textAlign: 'center',
+          color: '#666',
+        }}
+      >
+        Kraunama... ⏳
+      </div>
+    );
+  }
+
+  return <CustomizerContext.Provider value={value}>{children}</CustomizerContext.Provider>;
 }

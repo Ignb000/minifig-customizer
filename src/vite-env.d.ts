@@ -5,6 +5,7 @@ interface MinifigData {
   ajaxUrl: string;
   nonce: string;
   price: string;
+  partsApiUrl: string; // ← ADD THIS LINE
 }
 
 interface MinifigCustomizerAPI {

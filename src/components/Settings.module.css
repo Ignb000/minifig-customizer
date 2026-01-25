@@ -19,12 +19,11 @@
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--minifig-text);
-  list-style: none; /* paslepia default rodyklę */
+  list-style: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: var(--minifig-gap-sm) 0;
-  gap: var(--minifig-gap-sm) 0;
 }
 
 /* Custom rodyklė */
@@ -36,13 +35,20 @@
   transform: rotate(90deg);
 }
 
-/* thumbnail list */
+/* Grid layout - responsive for all screens */
 .list {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
   gap: var(--minifig-gap-sm);
   margin-top: var(--minifig-gap-sm);
-  overflow-x: auto;
+}
+
+/* Mobile: Smaller grid items */
+@media (max-width: 767px) {
+  .list {
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 8px;
+  }
 }
 
 .item {
@@ -50,12 +56,17 @@
   border-radius: 12px;
   padding: 4px;
   background: #fff;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
 }
+
 .item:hover {
   transform: translateY(-1px);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
 }
+
 .item[aria-pressed='true'] {
   border-color: var(--minifig-primary);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);

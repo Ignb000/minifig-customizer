@@ -1,4 +1,4 @@
-export type PartGroup = "headgear" | "face" | "torso" | "legs";
+export type PartGroup = 'headgear' | 'face' | 'torso' | 'legs';
 
 export type CatalogItem = {
   id: string;
@@ -14,27 +14,46 @@ export const catalog: Record<PartGroup, CatalogItem[]> = {
   legs: [],
 };
 
-const modules = import.meta.glob("../assets/*/*.{webp,png,jpg}", { eager: true });
-
-Object.entries(modules).forEach(([path, mod]) => {
-  const rel = path.split("/assets/")[1]; // pvz: "headgear/cap_red.webp"
-  const [group, filename] = rel.split("/");
-  const id = filename.replace(/\.(webp|png|jpg)$/, "");
-  const label = id.replace(/_/g, " ");
-
-  if (catalog[group as PartGroup]) {
-    catalog[group as PartGroup].push({
-      id,
-      label,
-      src: (mod as { default: string }).default,
-    });
-  }
-});
-
-// Default selection turi būti po to, kai jau užpildytas catalog
-export const defaultSelection: Record<PartGroup,string> = {
-  headgear: catalog.headgear[0]?.id ?? "",
-  face:     catalog.face[0]?.id ?? "",
-  torso:    catalog.torso[0]?.id ?? "",
-  legs:     catalog.legs[0]?.id ?? "",
+export const defaultSelection: Record<PartGroup, string> = {
+  headgear: '',
+  face: '',
+  torso: '',
+  legs: '',
 };
+
+/**
+ * Load catalog from WordPress API
+ */
+export async function loadCatalog(): Promise<void> {
+  try {
+    // Get API URL from WordPress
+    const apiUrl = window.minifigData?.partsApiUrl;
+
+    if (!apiUrl) {
+      console.error('Parts API URL not found in minifigData');
+      return;
+    }
+
+    const response = await fetch(apiUrl);
+    const result = await response.json();
+
+    if (result.success && result.data) {
+      // Populate catalog
+      Object.keys(result.data).forEach((group) => {
+        if (catalog[group as PartGroup]) {
+          catalog[group as PartGroup] = result.data[group];
+        }
+      });
+
+      // Set default selections (first item in each category)
+      defaultSelection.headgear = catalog.headgear[0]?.id ?? '';
+      defaultSelection.face = catalog.face[0]?.id ?? '';
+      defaultSelection.torso = catalog.torso[0]?.id ?? '';
+      defaultSelection.legs = catalog.legs[0]?.id ?? '';
+
+      console.log('✅ Catalog loaded:', catalog);
+    }
+  } catch (error) {
+    console.error('Failed to load parts catalog:', error);
+  }
+}
