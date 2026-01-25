@@ -3,6 +3,14 @@
   border-radius: var(--minifig-radius);
   box-shadow: var(--minifig-shadow);
   padding: var(--minifig-gap-md);
+  border: 2px solid var(--minifig-border);
+  transition: all 0.3s ease;
+}
+
+.wrap:hover {
+  transform: translateY(-4px);
+  border-color: var(--minifig-accent);
+  box-shadow: 0 12px 24px rgba(174, 217, 224, 0.3);
 }
 
 .frame {
@@ -10,10 +18,15 @@
   width: 100%;
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  border-radius: calc(var(--minifig-radius) - 4px);
-  background: repeating-linear-gradient(
-    45deg, #f3f1ee, #f3f1ee 12px, #ece9e6 12px, #ece9e6 24px
-  );
+  border-radius: calc(var(--radius) - 4px);
+
+  /* Diagonal stripes fallback (when no background image) */
+  background: repeating-linear-gradient(45deg, #f3f1ee, #f3f1ee 12px, #ece9e6 12px, #ece9e6 24px);
+
+  /* Background image styling (when present) */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* Mobile sticky */
@@ -50,13 +63,21 @@
   height: 100%;
   object-fit: contain;
   will-change: transform, opacity;
-  transition: opacity .2s ease, transform .2s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
 .pop {
-  animation: pop .18s ease-out;
+  animation: pop 0.18s ease-out;
 }
 @keyframes pop {
-  from {transform: scale(.98); opacity: .9}
-  to   {transform: scale(1);   opacity: 1}
+  from {
+    transform: scale(0.98);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }

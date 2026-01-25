@@ -1,16 +1,25 @@
-import { useEffect, useRef, useState } from "react";
-import { useCustomizer } from "../context/useCustomizer";
-import { preloadAll } from "../utils/preloader";
-import styles from "./Preview.module.css";
+import { useEffect, useRef, useState } from 'react';
+import { useCustomizer } from '../context/useCustomizer';
+import { getRandomBackground } from '../data/catalog';
+import { preloadAll } from '../utils/preloader';
+import styles from './Preview.module.css';
 
-export default function Preview(){
+export default function Preview() {
   const { layers } = useCustomizer();
   const [ready, setReady] = useState(false);
   const [pulseKey, setPulseKey] = useState(0); // jėgai atnaujinti animaciją
-  const prevLayersRef = useRef<string>("");
+  const [bgImage, setBgImage] = useState<string | null>(null);
+  const prevLayersRef = useRef<string>('');
+
+  // Pick random background on mount
+  useEffect(() => {
+    const randomBg = getRandomBackground();
+    setBgImage(randomBg);
+    console.log('🎨 Random background:', randomBg || 'Using diagonal stripes fallback');
+  }, []);
 
   useEffect(() => {
-    const signature = layers.join("|");
+    const signature = layers.join('|');
     if (signature !== prevLayersRef.current) {
       setReady(false);
       preloadAll(layers).then(() => {
@@ -25,13 +34,17 @@ export default function Preview(){
 
   return (
     <div className={styles.wrap}>
-      <div className={styles.frame} aria-busy={!ready}>
+      <div
+        className={styles.frame}
+        style={bgImage ? { backgroundImage: `url(${bgImage})` } : {}}
+        aria-busy={!ready}
+      >
         {layers.map((src, i) => (
           <img
-            key={src + pulseKey}     // remount → „pop“ animacija
+            key={src + pulseKey} // remount → „pop" animacija
             src={src}
             alt=""
-            className={`${styles.layer} ${ready ? styles.pop : ""}`}
+            className={`${styles.layer} ${ready ? styles.pop : ''}`}
             style={{ zIndex: 10 + i }}
             draggable={false}
           />

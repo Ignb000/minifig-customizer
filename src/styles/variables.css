@@ -1,12 +1,12 @@
 #product-customizer {
-  /* Colors from design guidelines */
+  /* Colors
   --minifig-bg: #ffffff;
   --minifig-surface: #ffffff;
   --minifig-primary: #2196f3;
   --minifig-primary-hover: #1976d2;
-  --minifig-accent: #aed9e0;
+  --minifig-accent: #aed9e0; 
   --minifig-text: #000000;
-  --minifig-border: rgba(0, 0, 0, 0.08);
+  --minifig-border: #e8e3df; 
   --minifig-gray: #f5f5f5;
 
   /* Spacing */
@@ -18,11 +18,16 @@
 
   /* Layout */
   --minifig-radius: 12px;
-  --minifig-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --minifig-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
   --minifig-container-w: 1200px;
 
   /* Typography */
   --minifig-button: 1rem;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    sans-serif;
   line-height: 1.4;
 }

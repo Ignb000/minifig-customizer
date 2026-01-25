@@ -7,11 +7,20 @@ export type CatalogItem = {
   thumb?: string;
 };
 
-export const catalog: Record<PartGroup, CatalogItem[]> = {
+export type CatalogData = {
+  headgear: CatalogItem[];
+  face: CatalogItem[];
+  torso: CatalogItem[];
+  legs: CatalogItem[];
+  backgrounds: string[]; // Added
+};
+
+export const catalog: CatalogData = {
   headgear: [],
   face: [],
   torso: [],
   legs: [],
+  backgrounds: [], // Added
 };
 
 export const defaultSelection: Record<PartGroup, string> = {
@@ -21,14 +30,9 @@ export const defaultSelection: Record<PartGroup, string> = {
   legs: '',
 };
 
-/**
- * Load catalog from WordPress API
- */
 export async function loadCatalog(): Promise<void> {
   try {
-    // Get API URL from WordPress
     const apiUrl = window.minifigData?.partsApiUrl;
-
     if (!apiUrl) {
       console.error('Parts API URL not found in minifigData');
       return;
@@ -38,22 +42,34 @@ export async function loadCatalog(): Promise<void> {
     const result = await response.json();
 
     if (result.success && result.data) {
-      // Populate catalog
+      // Load parts
       Object.keys(result.data).forEach((group) => {
-        if (catalog[group as PartGroup]) {
+        if (group === 'backgrounds') {
+          catalog.backgrounds = result.data.backgrounds || [];
+        } else if (catalog[group as PartGroup]) {
           catalog[group as PartGroup] = result.data[group];
         }
       });
 
-      // Set default selections (first item in each category)
+      // Set defaults
       defaultSelection.headgear = catalog.headgear[0]?.id ?? '';
       defaultSelection.face = catalog.face[0]?.id ?? '';
       defaultSelection.torso = catalog.torso[0]?.id ?? '';
       defaultSelection.legs = catalog.legs[0]?.id ?? '';
 
       console.log('✅ Catalog loaded:', catalog);
+      console.log('🎨 Backgrounds found:', catalog.backgrounds.length);
     }
   } catch (error) {
     console.error('Failed to load parts catalog:', error);
   }
+}
+
+/**
+ * Get random background URL (or null if empty)
+ */
+export function getRandomBackground(): string | null {
+  if (catalog.backgrounds.length === 0) return null;
+  const randomIndex = Math.floor(Math.random() * catalog.backgrounds.length);
+  return catalog.backgrounds[randomIndex];
 }
