@@ -5,7 +5,6 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--minifig-gap-lg);
-  min-height: 100svh;
 }
 
 @media (min-width: 1024px){

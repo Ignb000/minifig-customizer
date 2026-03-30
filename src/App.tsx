@@ -6,7 +6,7 @@ import { useCustomizer } from "./context/useCustomizer";
 import { catalog } from "./data/catalog";
 
 export default function App(){
-  const { selection, layers } = useCustomizer();
+  const { selection, layers, chainEnabled } = useCustomizer();
 
   // Send config to WordPress on mount and whenever selection changes
   useEffect(() => {
@@ -21,14 +21,15 @@ export default function App(){
       window.MinifigCustomizer.addToCart({
         selection,
         config,
-        layers
+        layers,
+        chainEnabled
       });
     }
-  }, [selection, layers]);
+  }, [selection, layers, chainEnabled]);
 
   return (
     <main className="app">
-      <section className="panel preview-sticky">
+      <section className="preview-sticky">
         <Preview/>
       </section>
       <aside className="panel"><Settings/></aside>

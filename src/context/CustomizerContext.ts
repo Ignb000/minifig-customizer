@@ -7,6 +7,8 @@ export type Ctx = {
   selection: Selection;
   setPart: (group: PartGroup, id: string) => void;
   layers: string[];
+  chainEnabled: boolean;
+  toggleChain: () => void;
 };
 
 // Tik context objektas, be logikos

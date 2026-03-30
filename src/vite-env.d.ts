@@ -13,6 +13,7 @@ interface MinifigCustomizerAPI {
     selection: Record<string, string>;
     config: Record<string, string | undefined>;
     layers: string[];
+    chainEnabled: boolean;
   }) => void;
 }
 

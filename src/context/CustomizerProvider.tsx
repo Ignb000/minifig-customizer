@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import type { PartGroup } from '../data/catalog';
-import { catalog, defaultSelection, loadCatalog } from '../data/catalog';
+import { catalog, chainSrc, defaultSelection, loadCatalog } from '../data/catalog';
 import { CustomizerContext, type Ctx, type Selection } from './CustomizerContext';
 
 export function CustomizerProvider({ children }: { children: ReactNode }) {
@@ -21,19 +21,26 @@ export function CustomizerProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  const [chainEnabled, setChainEnabled] = useState(true);
+  const toggleChain = () => setChainEnabled((prev) => !prev);
+
   const setPart = (group: PartGroup, id: string) => setSelection((s) => ({ ...s, [group]: id }));
 
   const layers = useMemo(() => {
-    const ids = [
+    const parts = [
       catalog.legs.find((i) => i.id === selection.legs)?.src,
       catalog.torso.find((i) => i.id === selection.torso)?.src,
       catalog.face.find((i) => i.id === selection.face)?.src,
       catalog.headgear.find((i) => i.id === selection.headgear)?.src,
     ].filter(Boolean) as string[];
-    return ids;
-  }, [selection]);
 
-  const value: Ctx = { selection, setPart, layers };
+    if (chainEnabled && chainSrc) {
+      return [chainSrc, ...parts];
+    }
+    return parts;
+  }, [selection, chainEnabled]);
+
+  const value: Ctx = { selection, setPart, layers, chainEnabled, toggleChain };
 
   if (isLoading) {
     return (

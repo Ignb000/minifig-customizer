@@ -15,6 +15,8 @@ export type CatalogData = {
   backgrounds: string[]; // Added
 };
 
+export let chainSrc: string | null = null;
+
 export const catalog: CatalogData = {
   headgear: [],
   face: [],
@@ -42,14 +44,16 @@ export async function loadCatalog(): Promise<void> {
     const result = await response.json();
 
     if (result.success && result.data) {
+      const data = result.data;
       // Load parts
-      Object.keys(result.data).forEach((group) => {
+      Object.keys(data).forEach((group) => {
         if (group === 'backgrounds') {
-          catalog.backgrounds = result.data.backgrounds || [];
+          catalog.backgrounds = data.backgrounds || [];
         } else if (catalog[group as PartGroup]) {
-          catalog[group as PartGroup] = result.data[group];
+          catalog[group as PartGroup] = data[group];
         }
       });
+      chainSrc = data.chain ?? null;
 
       // Set defaults
       defaultSelection.headgear = catalog.headgear[0]?.id ?? '';

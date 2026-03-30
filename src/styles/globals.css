@@ -48,3 +48,14 @@
   letter-spacing: 0.5px;
   font-family: 'Inter', sans-serif;
 }
+
+/* Accessibility — disable animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  #product-customizer *,
+  #product-customizer *::before,
+  #product-customizer *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -2,6 +2,7 @@ import styles from "./Settings.module.css";
 import { useCustomizer } from "../context/useCustomizer";
 import { catalog } from "../data/catalog";
 import type { PartGroup } from "../data/catalog";
+import Toggle from "./Toggle";
 
 function Section({ group, title }: { group: PartGroup; title: string }) {
   const { selection, setPart } = useCustomizer();
@@ -33,7 +34,8 @@ function Section({ group, title }: { group: PartGroup; title: string }) {
 
 export default function Settings() {
   return (
-    <div className={styles.wrap}>
+    <div className={`${styles.wrap} sticky`}>
+      <Toggle />
       <Section group="headgear" title="Kepurės ir plaukai" />
       <Section group="face" title="Veidai" />
       <Section group="torso" title="Aprangos" />

@@ -7,11 +7,17 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# Claude Code
+.claude/
+
 # Env / secrets / tooling
 .env
 .env.*
 .vercel/
 .netlify/
+
+# Docs (not ready for repo yet)
+README.md
 
 # OS/editor
 .DS_Store

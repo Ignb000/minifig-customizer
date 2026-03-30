@@ -1,0 +1,50 @@
+.toggle {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--minifig-gray);
+  border: 2px solid var(--minifig-border);
+  border-radius: var(--minifig-radius);
+  padding: 4px;
+  gap: 0;
+}
+
+.option {
+  position: relative;
+  z-index: 2;
+  padding: 10px 16px;
+  border: none;
+  border-radius: calc(var(--minifig-radius) - 4px);
+  background: transparent;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--minifig-text);
+  cursor: pointer;
+  transition: color 0.3s ease;
+  text-align: center;
+}
+
+.option.active {
+  color: #000;
+}
+
+.option:not(.active) {
+  opacity: 0.6;
+}
+
+.option:not(.active):hover {
+  opacity: 0.8;
+}
+
+.slider {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  height: calc(100% - 8px);
+  background: var(--minifig-highlight);
+  border-radius: calc(var(--minifig-radius) - 4px);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
+}
