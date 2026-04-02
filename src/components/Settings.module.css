@@ -113,3 +113,32 @@
   from { opacity: 0; transform: translateY(8px) scale(0.95); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
+
+/* Smooth open/close animation for <details> */
+.animateWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease-out;
+  overflow: hidden;
+}
+
+.section[open] .animateWrap {
+  grid-template-rows: 1fr;
+}
+
+.animateWrap > * {
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* Summary label with icon */
+.summaryLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}

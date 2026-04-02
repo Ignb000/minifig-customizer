@@ -1,5 +1,5 @@
 .wrap {
-  background: var(--minifig-preview-bg);
+  background: #F5F3F0;
   border-radius: var(--minifig-radius);
   box-shadow: var(--minifig-shadow);
   padding: var(--minifig-gap-md);
@@ -20,8 +20,8 @@
   overflow: hidden;
   border-radius: calc(var(--minifig-radius) - 4px);
 
-  /* Diagonal stripes fallback (when no background image) */
-  background: repeating-linear-gradient(45deg, #FFF9E6, #FFF9E6 12px, #FFF3CC 12px, #FFF3CC 24px);
+  /* Solid fallback (when no background image) */
+  background: #F5F3F0;
 
   /* Background image styling (when present) */
   background-size: cover;
