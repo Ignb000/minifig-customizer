@@ -4,6 +4,7 @@ export type CatalogItem = {
   id: string;
   label: string;
   src: string;
+  thumbnail?: string;
   thumb?: string;
 };
 

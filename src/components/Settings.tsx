@@ -20,7 +20,7 @@ function Section({ group, title, icon }: { group: PartGroup; title: string; icon
         <div className={styles.list}>
           {items.map((item) => {
             const active = selection[group] === item.id;
-            const thumb = item.src;
+            const thumb = item.thumbnail ?? item.src;
             return (
               <button
                 key={item.id}
