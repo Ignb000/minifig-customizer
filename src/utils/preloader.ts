@@ -3,10 +3,11 @@ const cache = new Map<string, Promise<void>>();
 export function preload(src: string) {
   if (!src) return Promise.resolve();
   if (cache.has(src)) return cache.get(src)!;
-  const p = new Promise<void>((resolve, reject) => {
+  const p = new Promise<void>((resolve) => {
     const img = new Image();
     img.onload = () => resolve();
-    img.onerror = reject;
+    // A single broken image must not block the whole figure from rendering.
+    img.onerror = () => resolve();
     img.src = src;
   });
   cache.set(src, p);
